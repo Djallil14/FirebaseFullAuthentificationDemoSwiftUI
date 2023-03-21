@@ -21,4 +21,5 @@ made on Xcode14.2
 
 ### Contribution
 
+If you can test voiceover and other accessibility tools to give feedback about how to improve it would be the awesome.
 If you want to fix some code, typo, add tests etc ... feel free to add a PR with a description i'll be more than happy to review it
