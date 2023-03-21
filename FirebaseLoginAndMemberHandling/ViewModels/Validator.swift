@@ -35,4 +35,16 @@ class Validator {
             return true
         }
     }
+    
+    func validatePasswordCreation(_ password: String, _ confirmationPassword: String) -> Bool {
+        guard !password.isEmpty, !confirmationPassword.isEmpty else {
+            return false
+        }
+        // Could add more validation steps, like minimum carac etc
+        if password == confirmationPassword {
+            return true
+        } else {
+            return false
+        }
+    }
 }
