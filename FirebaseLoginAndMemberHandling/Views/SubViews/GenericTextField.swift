@@ -17,12 +17,14 @@ struct GenericTextField: View {
     var borderColor: Color = .black
     var lineWidth: CGFloat = 2
     var sfIcon: String = "person"
+    var autoCorrectionDisabled: Bool = true
     var body: some View {
         HStack {
             Image(systemName: sfIcon)
                 .imageScale(.large)
             TextField(prompt, text: $value)
                 .foregroundColor(textColor)
+                .autocorrectionDisabled(autoCorrectionDisabled)
             confirmationOrErrorLogo()
         }
         .padding()

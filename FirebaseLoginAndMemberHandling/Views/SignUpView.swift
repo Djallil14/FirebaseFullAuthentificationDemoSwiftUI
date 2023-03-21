@@ -11,6 +11,9 @@ struct SignUpView: View {
     #warning("Deprecated in iOS15+, if you only support those version use dismiss")
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userAuthentification: UserAuthentification
+    @State var showErrorAlert: Bool = false
+    @State var alertErrorTitle: String = ""
+    @State var alertErrorDescription: String = ""
     @State var isUsernameCorrect: Bool?
     @State var isEmailCorrect: Bool?
     @State var isPasswordCorrect: Bool?
@@ -30,25 +33,41 @@ struct SignUpView: View {
                 withAnimation {
                     makingNetworkCall = true
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    // Sign up
+                userAuthentification.signUp { result, error in
+                    if let error = error {
+                        alertErrorTitle = error.title
+                        alertErrorDescription = error.localizedDescription
+                        showErrorAlert.toggle()
+                    } else {
+                        userAuthentification.addDisplayName()
+                        alertErrorTitle = "You are now signed in"
+                        alertErrorDescription = "Hello \(result?.user.displayName ?? "!") !"
+                        showErrorAlert.toggle()
+                    }
                     withAnimation {
-                        isUsernameCorrect = Bool.random()
-                        isEmailCorrect = Bool.random()
-                        isPasswordCorrect = Bool.random()
                         makingNetworkCall = false
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+                    // Useless but still ... by changing the profil view swiftui automaticly dismiss the signup view
+                    self.presentationMode.wrappedValue.dismiss()
                 }
             }) {
                 FullWidthCapsuleButtonLabel(title: "Sign Up")
             }
             if makingNetworkCall {
-                ProgressView()
+                HStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
             }
             Spacer()
+        }
+        .alert(isPresented: $showErrorAlert) {
+            Alert(
+                title: Text(alertErrorTitle),
+                message: Text(alertErrorDescription),
+                dismissButton: .default(Text("Got it!"))
+            )
         }
         .disabled(makingNetworkCall)
         .padding()
@@ -58,7 +77,9 @@ struct SignUpView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SignUpView(userAuthentification: .init())
+            SignUpView(
+                userAuthentification: .init()
+            )
         }
     }
 }

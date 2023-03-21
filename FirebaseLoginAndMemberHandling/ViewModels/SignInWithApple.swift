@@ -22,7 +22,7 @@ class SignInToAppleWithFirebase: ObservableObject {
         self.idTokenString = tokenString
     }
     
-    func signInWithFirebase(completion: @escaping (AuthDataResult?, SignInErrors?) -> Void) {
+    func signInWithFirebase(completion: @escaping (AuthDataResult?, SwiftyAuthErrors?) -> Void) {
         guard let nonce = nonce, let idTokenString = idTokenString, !nonce.isEmpty, !idTokenString.isEmpty else {
             completion(nil, .genericError)
             return
@@ -38,23 +38,8 @@ class SignInToAppleWithFirebase: ObservableObject {
             if let error = error {
                 let nsError = error as NSError
                 let errorCode = AuthErrorCode(_nsError: nsError).code
-                switch errorCode {
-                case .emailAlreadyInUse:
-                    completion(nil, .emailAlreadyInUse)
-                    return
-                case .credentialAlreadyInUse:
-                    completion(nil, .someOneIsAlreadySignedIn)
-                    return
-                case .invalidEmail:
-                    completion(nil, .invalidEmail)
-                    return
-                case .networkError:
-                    completion(nil, .networkError)
-                    return
-                default:
-                    completion(nil, .genericError)
-                    return
-                }
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(nil, formattedError)
             } else {
                 completion(authResult, nil)
             }

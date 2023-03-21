@@ -16,6 +16,7 @@ struct SecureGenericTextField: View {
     var borderColor: Color = .black
     var lineWidth: CGFloat = 2
     var sfIcon: String = "lock"
+    var autoCorrectionDisabled: Bool = true
     @Binding var isCorrect: Bool?
     var body: some View {
         HStack {
@@ -23,6 +24,7 @@ struct SecureGenericTextField: View {
                 .imageScale(.large)
             SecureField(prompt, text: $value)
                 .foregroundColor(textColor)
+                .autocorrectionDisabled(autoCorrectionDisabled)
             confirmationOrErrorLogo()
         }
         .padding()

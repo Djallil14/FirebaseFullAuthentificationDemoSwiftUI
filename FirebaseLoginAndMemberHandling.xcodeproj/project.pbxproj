@@ -24,6 +24,7 @@
 		9D93D6A429C90CB50054BC82 /* SignInErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D6A329C90CB50054BC82 /* SignInErrors.swift */; };
 		9D93D6A629C90CBF0054BC82 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D6A529C90CBF0054BC82 /* User.swift */; };
 		9D93D6A829C917910054BC82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D93D6A729C917910054BC82 /* GoogleService-Info.plist */; };
+		9D93D6AA29C93D170054BC82 /* ProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D6A929C93D170054BC82 /* ProfilView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		9D93D6A329C90CB50054BC82 /* SignInErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInErrors.swift; sourceTree = "<group>"; };
 		9D93D6A529C90CBF0054BC82 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9D93D6A729C917910054BC82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9D93D6A929C93D170054BC82 /* ProfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				9D93D69029C8B7440054BC82 /* SubViews */,
 				9D93D67929C819C70054BC82 /* SignUpView.swift */,
 				9D93D68D29C8ABA60054BC82 /* LoginView.swift */,
+				9D93D6A929C93D170054BC82 /* ProfilView.swift */,
 				9D93D69929C8D8F10054BC82 /* MainTabView.swift */,
 			);
 			path = Views;
@@ -232,6 +235,7 @@
 				9D93D68E29C8ABA60054BC82 /* LoginView.swift in Sources */,
 				9D93D6A029C8DEDF0054BC82 /* String+RandomNonce.swift in Sources */,
 				9D93D69D29C8DAD20054BC82 /* Tabs.swift in Sources */,
+				9D93D6AA29C93D170054BC82 /* ProfilView.swift in Sources */,
 				9D93D6A229C8DF120054BC82 /* String+SHA256.swift in Sources */,
 				9D93D69629C8B8520054BC82 /* UserAuthentification.swift in Sources */,
 				9D93D68A29C8AB1C0054BC82 /* GenericTextField.swift in Sources */,

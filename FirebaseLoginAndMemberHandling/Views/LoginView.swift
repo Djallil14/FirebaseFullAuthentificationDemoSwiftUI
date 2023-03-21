@@ -10,7 +10,7 @@ import _AuthenticationServices_SwiftUI
 
 struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var userAuthentification = UserAuthentification()
+    @ObservedObject var userAuthentification: UserAuthentification
     @StateObject var signInWithAppleVM = SignInToAppleWithFirebase()
     @State var isEmailCorrect: Bool?
     @State var isPasswordCorrect: Bool?
@@ -59,6 +59,9 @@ struct LoginView: View {
                     alertErrorTitle = "Sign in with Apple Failed"
                     alertErrorDescription = error.localizedDescription
                     showErrorAlert = true
+                    withAnimation {
+                        makingNetworkCall = false
+                    }
                 }
             }
             .frame(minHeight: 44, maxHeight: 64)
@@ -86,7 +89,9 @@ struct LoginView: View {
         .disabled(makingNetworkCall)
         .navigationTitle("Login")
         .sheet(isPresented: $showSignUpSheet) {
-            SignUpView(userAuthentification: userAuthentification)
+            SignUpView(
+                userAuthentification: userAuthentification
+            )
         }
         .alert(isPresented: $showErrorAlert) {
             Alert(
@@ -132,7 +137,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LoginView()
+            LoginView(userAuthentification: .init())
         }
     }
 }

@@ -22,7 +22,7 @@ struct MainTabView: View {
                 .tag(Tabs.home)
             #warning("Deprecated in iOS 16, use NavigationStack if you support only iOS16+")
             NavigationView {
-                LoginView()
+                ProfilView()
             }
                 .tabItem {
                     tabItemFor(.profil)

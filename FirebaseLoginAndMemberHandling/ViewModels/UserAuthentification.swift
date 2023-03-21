@@ -29,7 +29,7 @@ class UserAuthentification: ObservableObject {
         listenToAuthState()
     }
     
-    func listenToAuthState() {
+    private func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self, let user = user else {
                 return
@@ -42,13 +42,15 @@ class UserAuthentification: ObservableObject {
         }
     }
     
-    func signUp(handler: @escaping (AuthDataResult?, Error?) -> Void) {
+    func signUp(completion: @escaping (AuthDataResult?, SwiftyAuthErrors?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             guard let self = self else { return }
             if let error = error {
-                #warning("handle error")
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(nil, formattedError)
             } else {
-                self.addDisplayName(self.displayName)
                 self.user = User(
                     uuid: result!.user.uid,
                     displayName: result?.user.displayName,
@@ -59,13 +61,16 @@ class UserAuthentification: ObservableObject {
     }
     
     /// set a user display name on firestore authentification service
-    /// - Parameter name: a name in String format
-    func addDisplayName(_ name: String) {
+    func addDisplayName() {
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = name
-        self.user?.displayName = name
-        changeRequest?.commitChanges { (error) in
-            print("\(error?.localizedDescription ?? "couldn't add a name to the profil")")
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges { [weak self] error in
+            guard let self = self else { return }
+            if error != nil {
+                print("\(error?.localizedDescription ?? "couldn't add a name to the profil")")
+            } else {
+                self.user?.displayName = self.displayName
+            }
         }
     }
     
@@ -75,44 +80,19 @@ class UserAuthentification: ObservableObject {
     func signIn(
         email: String,
         password: String,
-        handler: @escaping (AuthDataResult?, SignInErrors?) -> Void
+        completion: @escaping (AuthDataResult?, SwiftyAuthErrors?) -> Void
     ) {
         Auth.auth().signIn(withEmail: email, password: password) {[weak self] result, error in
             guard let self = self else {
-                handler(nil, .genericError)
+                completion(nil, .genericError)
                 return
             }
             if let error = error {
                 // We have an error
                 let nsError = error as NSError
                 let errorCode = AuthErrorCode(_nsError: nsError).code
-                switch errorCode {
-                case .invalidCustomToken, .customTokenMismatch, .invalidCredential:
-                    handler(nil, .genericError)
-                case .userDisabled, .operationNotAllowed:
-                    handler(nil, .genericError)
-                case .emailAlreadyInUse:
-                    handler(nil, .emailAlreadyInUse)
-                case .invalidEmail:
-                    handler(nil, .invalidEmail)
-                case .wrongPassword:
-                    handler(nil, .wrongPassword)
-                case .tooManyRequests:
-                    handler(nil, .tooManyRequests)
-                case .userNotFound:
-                    handler(nil, .userNotFound)
-                case .accountExistsWithDifferentCredential:
-                    handler(nil, .accountExistsWithDifferentCredential)
-                case .networkError:
-                    handler(nil, .networkError)
-                case .weakPassword:
-                    handler(nil, .weakPassword)
-                case .unverifiedEmail:
-                    handler(nil, .unverifiedEmail)
-                default:
-                    // don't really care about other errors
-                    handler(nil, .genericError)
-                }
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(nil, formattedError)
             } else {
                 self.user = User(
                     uuid: result!.user.uid,
@@ -124,16 +104,14 @@ class UserAuthentification: ObservableObject {
         }
     }
     
-    func signOut()-> Bool {
+    func signOut() throws {
         do {
             try Auth.auth().signOut()
             self.user = nil
             self.isLoggedIn = false
             print("Sign out succesfull")
-            #warning("Error handling")
-            return true
         } catch {
-            return false
+            throw error
         }
     }
     
@@ -144,8 +122,6 @@ class UserAuthentification: ObservableObject {
                 print("\(error.localizedDescription)")
             } else {
                 print("Account Deleted")
-#warning("Error handling")
-
             }
         }
     }
@@ -156,8 +132,5 @@ class UserAuthentification: ObservableObject {
         changeRequest?.commitChanges { (error) in
             print("\(String(describing: error?.localizedDescription))")
         }
-        
     }
 }
-
-

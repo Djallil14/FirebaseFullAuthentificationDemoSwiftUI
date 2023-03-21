@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-enum SignInErrors: Error {
+enum SwiftyAuthErrors: Error {
     case invalidEmail
     case wrongPassword
     case tooManyRequests
@@ -71,6 +72,37 @@ enum SignInErrors: Error {
             return "Email is Invalid"
         case .genericError:
             return "An unknown error just happend"
+        }
+    }
+    
+    static func handleFirebaseAuthErrors(_ error: AuthErrorCode.Code) -> SwiftyAuthErrors {
+        switch error {
+        case .invalidCustomToken, .customTokenMismatch, .invalidCredential:
+            return .genericError
+        case .userDisabled, .operationNotAllowed:
+            return .genericError
+        case .emailAlreadyInUse:
+            return .emailAlreadyInUse
+        case .invalidEmail:
+            return .invalidEmail
+        case .wrongPassword:
+            return .wrongPassword
+        case .tooManyRequests:
+            return .tooManyRequests
+        case .userNotFound:
+            return .userNotFound
+        case .accountExistsWithDifferentCredential:
+            return .accountExistsWithDifferentCredential
+        case .networkError:
+            return .networkError
+        case .weakPassword:
+            return .weakPassword
+        case .unverifiedEmail:
+            return .unverifiedEmail
+        default:
+            // Don't really care about other errors for the moment
+            // You should probably handle all errors in production if you want to be safe
+           return .genericError
         }
     }
 }

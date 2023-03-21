@@ -10,14 +10,18 @@ import FirebaseCore
 
 @main
 struct FirebaseLoginAndMemberHandlingApp: App {
-    
-    init() {
-        FirebaseApp.configure()
-    }
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     var body: some Scene {
         WindowGroup {
             MainTabView()
         }
     }
+}
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
 }
