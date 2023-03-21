@@ -5,3 +5,8 @@ reusability base for my projects that need auth, i hope it will help other peopl
 
 iOS14+
 Xcode 14
+
+1. Create your firebase profil etc.
+2. Download your googleinfo.plist
+3. Add it to the project
+4. You're good to go
