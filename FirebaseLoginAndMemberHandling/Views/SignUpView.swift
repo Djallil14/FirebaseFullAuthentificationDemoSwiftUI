@@ -46,9 +46,8 @@ struct SignUpView: View {
                     }
                     withAnimation {
                         makingNetworkCall = false
+                        self.presentationMode.wrappedValue.dismiss()
                     }
-                    // Useless but still ... by changing the profil view swiftui automaticly dismiss the signup view
-                    self.presentationMode.wrappedValue.dismiss()
                 }
             }) {
                 FullWidthCapsuleButtonLabel(title: "Sign Up")
