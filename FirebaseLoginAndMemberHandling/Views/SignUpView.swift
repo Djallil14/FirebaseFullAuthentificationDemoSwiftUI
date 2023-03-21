@@ -72,7 +72,7 @@ struct SignUpView: View {
                 alertErrorDescription = error.localizedDescription
                 showErrorAlert.toggle()
             } else {
-                userAuthentification.addDisplayName()
+                userAuthentification.addDisplayName { _ in }
                 alertErrorTitle = "You are now signed in"
                 alertErrorDescription = "Hello \(result?.user.displayName ?? "!") !"
                 showErrorAlert.toggle()

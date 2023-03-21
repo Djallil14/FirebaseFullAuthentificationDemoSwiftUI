@@ -60,22 +60,43 @@ class UserAuthentification: ObservableObject {
         }
     }
     
-    func addDisplayName() {
+    func addDisplayName(completion: @escaping(SwiftyAuthErrors?) -> Void) {
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
         changeRequest?.commitChanges { [weak self] error in
             guard let self = self else { return }
-            if error != nil {
-                #warning("error handling")
-                print(error?.localizedDescription ?? "couldn't add a name to the profil")
+            if let error = error {
+                // We have an error
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
             } else {
                 self.user?.displayName = self.displayName
+                completion(nil)
             }
         }
     }
     
     func setAppleUser(user: User) {
         self.user = user
+    }
+    
+    func changeEmail(newEmail: String, completion: @escaping (SwiftyAuthErrors?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        user.updateEmail(to: newEmail) { error in
+            if let error = error {
+                // We have an error
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
     func signIn(
@@ -108,28 +129,37 @@ class UserAuthentification: ObservableObject {
             try Auth.auth().signOut()
             self.user = nil
             self.isLoggedIn = false
-            print("Sign out succesfull")
         } catch {
             throw error
         }
     }
     
-    func deleteUser() {
+    func deleteUser(completion: @escaping(SwiftyAuthErrors?) -> Void) {
         let user = Auth.auth().currentUser
         user?.delete { error in
             if let error = error {
-                print("\(error.localizedDescription)")
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
             } else {
-                print("Account Deleted")
+                completion(nil)
             }
         }
     }
     
-    func changeDisplayName(displayName: String){
+    func changeDisplayName(displayName: String, completion: @escaping(SwiftyAuthErrors?) -> Void){
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
-        changeRequest?.commitChanges { (error) in
-            print("\(String(describing: error?.localizedDescription))")
+        changeRequest?.commitChanges {(error) in
+            if let error = error {
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+            } else {
+                completion(nil)
+            }
         }
     }
 }
