@@ -7,8 +7,9 @@ If you find it usefull feel free to use it, modified it etc ... (give some love 
 
 Screen Shots comming soon ...
 
-iOS14+
-Xcode 14
+Support: iOS14+
+
+made on Xcode14.2
 
 ## How to
 1. Clone, Fork or Download the project.
