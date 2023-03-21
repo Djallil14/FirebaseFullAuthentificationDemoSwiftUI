@@ -19,22 +19,24 @@ struct GenericTextField: View {
     var sfIcon: String = "person"
     var autoCorrectionDisabled: Bool = true
     var body: some View {
-        HStack {
-            Image(systemName: sfIcon)
-                .imageScale(.large)
-            TextField(prompt, text: $value)
-                .foregroundColor(textColor)
-                .autocorrectionDisabled(autoCorrectionDisabled)
-            confirmationOrErrorLogo()
+        VStack {
+            HStack {
+                Image(systemName: sfIcon)
+                    .imageScale(.large)
+                TextField(prompt, text: $value)
+                    .foregroundColor(textColor)
+                    .autocorrectionDisabled(autoCorrectionDisabled)
+                confirmationOrErrorLogo()
+            }
+            .padding()
+            .background(backgroundColor)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(lineWidth: lineWidth)
+                    .fill(colorScheme == .light ? borderColor : .white)
+            )
+            .cornerRadius(12)
         }
-        .padding()
-        .background(backgroundColor)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(lineWidth: lineWidth)
-                .fill(colorScheme == .light ? borderColor : .white)
-        )
-        .cornerRadius(12)
     }
     
     @ViewBuilder

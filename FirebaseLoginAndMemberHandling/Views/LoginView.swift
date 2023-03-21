@@ -12,6 +12,7 @@ struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var userAuthentification: UserAuthentification
     @StateObject var signInWithAppleVM = SignInToAppleWithFirebase()
+    let validator = Validator.shared
     @State var isEmailCorrect: Bool?
     @State var isPasswordCorrect: Bool?
     @State var showSignUpSheet: Bool = false
@@ -27,17 +28,7 @@ struct LoginView: View {
             SecureGenericTextField(value: $userAuthentification.password, prompt: "Your Password", isCorrect: $isPasswordCorrect)
             Spacer()
             Button(action: {
-                withAnimation {
-                    makingNetworkCall = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    // Login
-                    withAnimation {
-                        isEmailCorrect = Bool.random()
-                        isPasswordCorrect = Bool.random()
-                        makingNetworkCall = false
-                    }
-                }
+                login()
             }) {
                 FullWidthCapsuleButtonLabel(title: "Login")
             }
@@ -102,6 +93,34 @@ struct LoginView: View {
         }
     }
     
+    private func login() {
+        withAnimation {
+            makingNetworkCall = true
+            isEmailCorrect = validator.validateEmail(userAuthentification.email)
+            isPasswordCorrect = validator.validatePassword(userAuthentification.password)
+        }
+        if isEmailCorrect == true && isPasswordCorrect == true {
+            userAuthentification.signIn { result, error in
+                if let error = error {
+                    alertErrorTitle = error.title
+                    alertErrorDescription = error.localizedDescription
+                    showErrorAlert.toggle()
+                } else {
+                    alertErrorTitle = "You are now signed in"
+                    alertErrorDescription = "Hello \(result?.user.displayName ?? "!") !"
+                    showErrorAlert.toggle()
+                }
+                withAnimation {
+                    makingNetworkCall = false
+                }
+            }
+        } else {
+            withAnimation {
+                makingNetworkCall = false
+            }
+        }
+    }
+    
     private func handleAppleSignInResponse(_ authorization: ASAuthorization) {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential, let identityToken = credential.identityToken, let identityTokenString = String(data: identityToken, encoding: .utf8) {
             signInWithAppleVM.updateTokenString(identityTokenString)
@@ -143,21 +162,4 @@ struct LoginView_Previews: PreviewProvider {
 }
 
 
-struct FullWidthCapsuleButtonLabel: View {
-    let title: String
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                
-            Spacer()
-        }
-        .background(Color.accentColor)
-        .clipShape(Capsule())
-    }
-}
 

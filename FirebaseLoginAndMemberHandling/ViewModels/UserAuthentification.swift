@@ -60,14 +60,14 @@ class UserAuthentification: ObservableObject {
         }
     }
     
-    /// set a user display name on firestore authentification service
     func addDisplayName() {
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
         changeRequest?.commitChanges { [weak self] error in
             guard let self = self else { return }
             if error != nil {
-                print("\(error?.localizedDescription ?? "couldn't add a name to the profil")")
+                #warning("error handling")
+                print(error?.localizedDescription ?? "couldn't add a name to the profil")
             } else {
                 self.user?.displayName = self.displayName
             }
@@ -77,9 +77,8 @@ class UserAuthentification: ObservableObject {
     func setAppleUser(user: User) {
         self.user = user
     }
+    
     func signIn(
-        email: String,
-        password: String,
         completion: @escaping (AuthDataResult?, SwiftyAuthErrors?) -> Void
     ) {
         Auth.auth().signIn(withEmail: email, password: password) {[weak self] result, error in
