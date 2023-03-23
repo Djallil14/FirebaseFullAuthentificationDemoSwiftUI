@@ -9,38 +9,15 @@ import SwiftUI
 
 struct ProfilView: View {
     @StateObject var userAuthentification = UserAuthentification()
-    @State var showErrorAlert: Bool = false
-    @State var alertErrorTitle: String = ""
-    @State var alertErrorDescription: String = ""
     var body: some View {
         if userAuthentification.isLoggedIn {
-            VStack {
-                Text("You are LoggedIn")
-                    .font(.headline)
-                Text("Hello \(userAuthentification.user?.displayName ?? userAuthentification.user?.email ?? "")")
-                    .font(.headline)
-                Button(action: {
-                    do {
-                        try userAuthentification.signOut()
-                    } catch {
-                        alertErrorTitle = "An Error Happened"
-                        alertErrorDescription = error.localizedDescription
-                        showErrorAlert.toggle()
-                    }
-                }) {
-                    FullWidthCapsuleButtonLabel(title: "Sign Out")
-                }
-            }
-            .padding()
-            .alert(isPresented: $showErrorAlert) {
-                Alert(
-                    title: Text(alertErrorTitle),
-                    message: Text(alertErrorDescription),
-                    dismissButton: .default(Text("Got it!"))
-                )
-            }
+            LoggenInView(
+                userAuthentification: userAuthentification
+            )
         } else {
-            LoginView(userAuthentification: userAuthentification)
+            LoginView(
+                userAuthentification: userAuthentification
+            )
         }
     }
 }
@@ -48,5 +25,19 @@ struct ProfilView: View {
 struct ProfilView_Previews: PreviewProvider {
     static var previews: some View {
         ProfilView()
+    }
+}
+
+enum ConfirmationAlert {
+    case delete
+    case signOut
+    
+    var title: String {
+        switch self {
+        case .delete:
+            return "delete your account"
+        case .signOut:
+            return "Sign Out"
+        }
     }
 }
