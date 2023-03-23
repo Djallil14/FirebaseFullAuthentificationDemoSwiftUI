@@ -11,6 +11,13 @@ Support: iOS14+
 
 made on Xcode14.2
 
+## Road Map
+- [x] Basic Configuration
+- [x] Login
+- [x] Sign Up
+- [x] Sign In with Apple
+- [] Profil Edition (changing email, password etc) (In Progress)
+
 ## How to
 1. Clone, Fork or Download the project.
 2. Add your Dev team. (you need a paid account to use Sign In with Apple Capability)
