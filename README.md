@@ -16,7 +16,11 @@ made on Xcode14.2
 - [x] Login
 - [x] Sign Up
 - [x] Sign In with Apple
-- [] Profil Edition (changing email, password etc) (In Progress)
+- [ ] Profil Edition (changing email, password etc) (In Progress)
+- [ ] Full Error handling
+- [ ] Full Accessibility Coverage
+- [ ] Full Test Coverage
+- [ ] Adding more Sign In Providers (priority for sign in with google)
 
 ## How to
 1. Clone, Fork or Download the project.
