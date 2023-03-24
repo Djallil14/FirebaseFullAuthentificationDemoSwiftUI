@@ -70,7 +70,7 @@ struct LoggenInView: View {
             ChangeDisplayNameView(userAuthentification: userAuthentification)
         }
         .sheet(isPresented: $showChangeYourEmailSheet) {
-            Text("Change your email")
+            ChangeEmailView(userAuthentification: userAuthentification)
         }
         .sheet(isPresented: $showChangeYourPasswordSheet) {
             ChangePasswordView(userAuthentification: userAuthentification)
