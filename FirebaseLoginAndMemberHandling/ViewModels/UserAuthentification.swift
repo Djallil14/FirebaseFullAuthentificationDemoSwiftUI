@@ -190,24 +190,28 @@ extension UserAuthentification {
             if let error = error {
                 let nsError = error as NSError
                 let errorCode = AuthErrorCode(_nsError: nsError).code
-                if errorCode == .credentialAlreadyInUse {
+                if errorCode == .requiresRecentLogin {
                     
                 }
             } else {
                 
             }
         }
-
-        // Prompt the user to re-provide their sign-in credentials
-
-        user?.reauthenticate(with: credential) { error in
+    }
+    
+    private func reauthenticateUser(email: String, password: String, completion: @escaping(SwiftyAuthErrors?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.genericError)
+            return
+        }
+        let emailCredential = EmailAuthProvider.credential(withEmail: email, password: password)
+        user.reauthenticate(with: emailCredential) { user, error in
           if let error = error {
             // An error happened.
           } else {
             // User re-authenticated.
           }
         }
-
     }
     
 //    private func changeCurrentPassword() {
