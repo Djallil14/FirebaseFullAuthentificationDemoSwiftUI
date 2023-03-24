@@ -163,10 +163,20 @@ extension UserAuthentification {
         }
     }
     
-    func changeEmail(newEmail: String, completion: @escaping (SwiftyAuthErrors?) -> Void) {
+    func changeEmail(email: String, password: String, newEmail: String, completion: @escaping (SwiftyAuthErrors?) -> Void) {
         guard let user = Auth.auth().currentUser else {
             return
         }
+        self.reauthenticateUser(email: email, password: password) { error in
+            if let error = error {
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+                return
+            }
+        }
+        
         user.updateEmail(to: newEmail) { error in
             if let error = error {
                 // We have an error

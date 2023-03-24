@@ -10,6 +10,7 @@
 		9D1ACAA429CE143300B3DB9E /* SmallCloseButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAA329CE143300B3DB9E /* SmallCloseButtonLabel.swift */; };
 		9D1ACAC229CE41B700B3DB9E /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */; };
 		9D1ACAC429CE44A400B3DB9E /* ChangeDisplayNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */; };
+		9D1ACAC629CE47B700B3DB9E /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAC529CE47B700B3DB9E /* ChangeEmailView.swift */; };
 		9D93D67829C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D67729C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift */; };
 		9D93D67A29C819C70054BC82 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D67929C819C70054BC82 /* SignUpView.swift */; };
 		9D93D67C29C819C90054BC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D93D67B29C819C90054BC82 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		9D1ACAA329CE143300B3DB9E /* SmallCloseButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCloseButtonLabel.swift; sourceTree = "<group>"; };
 		9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayNameView.swift; sourceTree = "<group>"; };
+		9D1ACAC529CE47B700B3DB9E /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
 		9D93D67429C819C70054BC82 /* FirebaseLoginAndMemberHandling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseLoginAndMemberHandling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93D67729C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginAndMemberHandlingApp.swift; sourceTree = "<group>"; };
 		9D93D67929C819C70054BC82 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				9D93D74129CE10990054BC82 /* ForgotPasswordView.swift */,
 				9D93D67929C819C70054BC82 /* SignUpView.swift */,
+				9D1ACAC529CE47B700B3DB9E /* ChangeEmailView.swift */,
 				9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */,
 				9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */,
 			);
@@ -276,6 +279,7 @@
 				9D93D74229CE10990054BC82 /* ForgotPasswordView.swift in Sources */,
 				9D93D6AD29C9FFE60054BC82 /* Validator.swift in Sources */,
 				9D93D69D29C8DAD20054BC82 /* Tabs.swift in Sources */,
+				9D1ACAC629CE47B700B3DB9E /* ChangeEmailView.swift in Sources */,
 				9D93D6AA29C93D170054BC82 /* ProfilView.swift in Sources */,
 				9D93D6A229C8DF120054BC82 /* String+SHA256.swift in Sources */,
 				9D93D69629C8B8520054BC82 /* UserAuthentification.swift in Sources */,
