@@ -74,6 +74,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1ACAA529CE188D00B3DB9E /* SheetViews */ = {
+			isa = PBXGroup;
+			children = (
+				9D93D74129CE10990054BC82 /* ForgotPasswordView.swift */,
+				9D93D67929C819C70054BC82 /* SignUpView.swift */,
+			);
+			path = SheetViews;
+			sourceTree = "<group>";
+		};
 		9D93D66B29C819C70054BC82 = {
 			isa = PBXGroup;
 			children = (
@@ -118,9 +127,8 @@
 		9D93D68F29C8B72E0054BC82 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D1ACAA529CE188D00B3DB9E /* SheetViews */,
 				9D93D69029C8B7440054BC82 /* Components */,
-				9D93D67929C819C70054BC82 /* SignUpView.swift */,
-				9D93D74129CE10990054BC82 /* ForgotPasswordView.swift */,
 				9D93D68D29C8ABA60054BC82 /* LoginView.swift */,
 				9D93D73F29CD10270054BC82 /* LoggenInView.swift */,
 				9D93D6A929C93D170054BC82 /* ProfilView.swift */,

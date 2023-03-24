@@ -134,7 +134,10 @@ struct LoginView: View {
     }
     
     private func handleAppleSignInResponse(_ authorization: ASAuthorization) {
-        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential, let identityToken = credential.identityToken, let identityTokenString = String(data: identityToken, encoding: .utf8) {
+        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+            let identityToken = credential.identityToken,
+            let identityTokenString = String(data: identityToken, encoding: .utf8)
+        {
             signInWithAppleVM.updateTokenString(identityTokenString)
             signInWithAppleVM.signInWithFirebase { result, error in
                 if let error = error {

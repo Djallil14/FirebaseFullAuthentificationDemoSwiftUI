@@ -180,6 +180,36 @@ extension UserAuthentification {
         }
     }
     
+    func changePassword(email: String, password: String, newPassword: String, completion: @escaping(SwiftyAuthErrors?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.genericError)
+            return
+        }
+        var credential: AuthCredential
+        user.updatePassword(to: password) { error in
+            if let error = error {
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                if errorCode == .credentialAlreadyInUse {
+                    
+                }
+            } else {
+                
+            }
+        }
+
+        // Prompt the user to re-provide their sign-in credentials
+
+        user?.reauthenticate(with: credential) { error in
+          if let error = error {
+            // An error happened.
+          } else {
+            // User re-authenticated.
+          }
+        }
+
+    }
+    
 //    private func changeCurrentPassword() {
 //        let user = Auth.auth().currentUser
 //        var credential: AuthCredential

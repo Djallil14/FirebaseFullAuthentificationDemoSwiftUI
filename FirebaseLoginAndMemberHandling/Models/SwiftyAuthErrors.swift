@@ -19,6 +19,7 @@ enum SwiftyAuthErrors: Error {
     case someOneIsAlreadySignedIn
     case weakPassword
     case unverifiedEmail
+    case requiresRecentLogin
     case genericError
     
     var title: String {
@@ -45,6 +46,8 @@ enum SwiftyAuthErrors: Error {
             return "Unverified Email"
         case .genericError:
             return "An Error Happend"
+        case .requiresRecentLogin:
+            return "Require Recent Login"
         }
     }
     
@@ -53,25 +56,27 @@ enum SwiftyAuthErrors: Error {
         case .invalidEmail:
             return "Email is Invalid"
         case .wrongPassword:
-            return "Email is Invalid"
+            return "Password and/or Email are not correct"
         case .tooManyRequests:
             return "Too many requests, try later"
         case .emailAlreadyInUse:
             return "Email Already in use"
         case .userNotFound:
-            return "Email is Invalid"
+            return "User not found"
         case .accountExistsWithDifferentCredential:
-            return "Email is Invalid"
+            return "Account already exist"
         case .networkError:
-            return "Email is Invalid"
+            return "Network error, please check you are connected to internet"
         case .someOneIsAlreadySignedIn:
-            return "Email is Invalid"
+            return "Someone is Already signed in for this account"
         case .weakPassword:
-            return "Email is Invalid"
+            return "The password is to weak"
         case .unverifiedEmail:
-            return "Email is Invalid"
+            return "An Error Happened, You need to verify your email"
         case .genericError:
             return "An unknown error just happend"
+        case .requiresRecentLogin:
+            return "An Error Happened you need to reauthenticate"
         }
     }
     
@@ -99,6 +104,8 @@ enum SwiftyAuthErrors: Error {
             return .weakPassword
         case .unverifiedEmail:
             return .unverifiedEmail
+        case .requiresRecentLogin:
+            return .requiresRecentLogin
         default:
             // Don't really care about other errors for the moment
             // You should probably handle all errors in production if you want to be safe

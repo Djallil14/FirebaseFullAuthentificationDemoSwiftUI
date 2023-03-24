@@ -14,6 +14,10 @@ struct LoggenInView: View {
     @State private var alertErrorDescription: String = ""
     @State private var showConfirmationAlert: Bool = false
     @State private var confirmationAlert: ConfirmationAlert?
+    @State private var showChangeYourNameSheet: Bool = false
+    @State private var showChangeYourEmailSheet: Bool = false
+    @State private var showChangeYourPasswordSheet: Bool = false
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -27,19 +31,19 @@ struct LoggenInView: View {
             }
             Spacer()
             Button {
-                print("change email")
+                showChangeYourNameSheet = true
             } label: {
                 ProfilButtonLabel(title: "Change Your Name", icon: "person.fill")
             }
             
             Button {
-                print("change email")
+                showChangeYourEmailSheet = true
             } label: {
                 ProfilButtonLabel(title: "Change Email", icon: "envelope.fill")
             }
             
             Button {
-                print("change email")
+                showChangeYourPasswordSheet = true
             } label: {
                 ProfilButtonLabel(title: "Change Password", icon: "lock.fill")
             }
@@ -62,6 +66,15 @@ struct LoggenInView: View {
             Spacer()
         }
         .padding()
+        .sheet(isPresented: $showChangeYourNameSheet) {
+            Text("Change your name")
+        }
+        .sheet(isPresented: $showChangeYourEmailSheet) {
+            Text("Change your email")
+        }
+        .sheet(isPresented: $showChangeYourPasswordSheet) {
+            Text("Change your password")
+        }
         .alert(isPresented: $showErrorAlert) {
             Alert(
                 title: Text(alertErrorTitle),
