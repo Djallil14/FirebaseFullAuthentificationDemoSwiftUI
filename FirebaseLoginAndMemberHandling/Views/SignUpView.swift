@@ -20,9 +20,17 @@ struct SignUpView: View {
     @State var makingNetworkCall: Bool = false
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Sign Up")
-                .font(.largeTitle)
-                .bold()
+            HStack {
+                Text("Sign Up")
+                    .font(.largeTitle)
+                    .bold()
+                Spacer()
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    SmallCloseButtonLabel()
+                }
+            }
             Spacer()
             GenericTextField(value: $userAuthentification.displayName, isCorrect: .constant(nil), prompt: "Your Display Name")
             GenericTextField(value: $userAuthentification.email, isCorrect: $isEmailCorrect, prompt: "Your Email", sfIcon: "envelope")

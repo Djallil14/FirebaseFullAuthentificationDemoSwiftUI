@@ -82,23 +82,6 @@ class UserAuthentification: ObservableObject {
         self.user = user
     }
     
-    func changeEmail(newEmail: String, completion: @escaping (SwiftyAuthErrors?) -> Void) {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        user.updateEmail(to: newEmail) { error in
-            if let error = error {
-                // We have an error
-                let nsError = error as NSError
-                let errorCode = AuthErrorCode(_nsError: nsError).code
-                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
-                completion(formattedError)
-            } else {
-                completion(nil)
-            }
-        }
-    }
-    
     func signIn(
         completion: @escaping (AuthDataResult?, SwiftyAuthErrors?) -> Void
     ) {
@@ -147,6 +130,23 @@ class UserAuthentification: ObservableObject {
             }
         }
     }
+}
+
+// MARK: - Changing User handles
+extension UserAuthentification {
+    
+    func forgotPassword(email: String, completion: @escaping(SwiftyAuthErrors?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+            } else {
+                completion(nil)
+            }
+        }
+    }
     
     func changeDisplayName(displayName: String, completion: @escaping(SwiftyAuthErrors?) -> Void){
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -162,4 +162,35 @@ class UserAuthentification: ObservableObject {
             }
         }
     }
+    
+    func changeEmail(newEmail: String, completion: @escaping (SwiftyAuthErrors?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        user.updateEmail(to: newEmail) { error in
+            if let error = error {
+                // We have an error
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+//    private func changeCurrentPassword() {
+//        let user = Auth.auth().currentUser
+//        var credential: AuthCredential
+//        // Prompt the user to re-provide their sign-in credentials
+//
+//        user?.reauthenticate(with: credential) { user ,error in
+//          if let error = error {
+//            // An error happened.
+//          } else {
+//            // User re-authenticated.
+//          }
+//        }
+//    }
 }

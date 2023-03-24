@@ -12,14 +12,15 @@ struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var userAuthentification: UserAuthentification
     @StateObject var signInWithAppleVM = SignInToAppleWithFirebase()
-    let validator = Validator.shared
+    private let validator = Validator.shared
     @State var isEmailCorrect: Bool?
     @State var isPasswordCorrect: Bool?
-    @State var showSignUpSheet: Bool = false
-    @State var makingNetworkCall: Bool = false
-    @State var showErrorAlert: Bool = false
-    @State var alertErrorTitle: String = ""
-    @State var alertErrorDescription: String = ""
+    @State private var showSignUpSheet: Bool = false
+    @State private var showForgotPassword: Bool = false
+    @State private var makingNetworkCall: Bool = false
+    @State private var showErrorAlert: Bool = false
+    @State private var alertErrorTitle: String = ""
+    @State private var alertErrorDescription: String = ""
 
     var body: some View {
         VStack {
@@ -67,13 +68,21 @@ struct LoginView: View {
             }
             
             Button(action: {
-                showSignUpSheet.toggle()
+                showSignUpSheet = true
             }) {
                 Text("Create an account")
                     .font(.headline)
                     .padding()
             }
             .padding()
+            
+            Button(action: {
+                showForgotPassword = true
+            }) {
+                Text("Forgot Password")
+                    .font(.headline)
+                    .padding()
+            }
             Spacer()
         }
         .padding()
@@ -83,6 +92,9 @@ struct LoginView: View {
             SignUpView(
                 userAuthentification: userAuthentification
             )
+        }
+        .sheet(isPresented: $showForgotPassword) {
+            ForgotPasswordView(userAuthentification: userAuthentification)
         }
         .alert(isPresented: $showErrorAlert) {
             Alert(
