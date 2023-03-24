@@ -16,7 +16,8 @@ made on Xcode14.2
 - [x] Login
 - [x] Sign Up
 - [x] Sign In with Apple
-- [ ] Profil Edition (changing email, password etc) (In Progress)
+- [x] Profil Edition (changing email, password etc) (In Progress)
+- [ ] Code Cleaning and better organisation
 - [ ] Full Error handling
 - [ ] Full Accessibility Coverage
 - [ ] Full Test Coverage
