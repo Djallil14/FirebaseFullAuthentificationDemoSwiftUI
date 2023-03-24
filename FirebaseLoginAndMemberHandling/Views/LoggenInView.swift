@@ -67,13 +67,13 @@ struct LoggenInView: View {
         }
         .padding()
         .sheet(isPresented: $showChangeYourNameSheet) {
-            Text("Change your name")
+            ChangeDisplayNameView(userAuthentification: userAuthentification)
         }
         .sheet(isPresented: $showChangeYourEmailSheet) {
             Text("Change your email")
         }
         .sheet(isPresented: $showChangeYourPasswordSheet) {
-            Text("Change your password")
+            ChangePasswordView(userAuthentification: userAuthentification)
         }
         .alert(isPresented: $showErrorAlert) {
             Alert(

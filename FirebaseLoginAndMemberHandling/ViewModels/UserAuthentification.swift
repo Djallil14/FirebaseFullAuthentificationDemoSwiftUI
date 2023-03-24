@@ -185,16 +185,24 @@ extension UserAuthentification {
             completion(.genericError)
             return
         }
-        var credential: AuthCredential
-        user.updatePassword(to: password) { error in
+        
+        self.reauthenticateUser(email: email, password: password) { error in
             if let error = error {
                 let nsError = error as NSError
                 let errorCode = AuthErrorCode(_nsError: nsError).code
-                if errorCode == .requiresRecentLogin {
-                    
-                }
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
+                return
+            }
+        }
+        user.updatePassword(to: newPassword) { error in
+            if let error = error {
+                let nsError = error as NSError
+                let errorCode = AuthErrorCode(_nsError: nsError).code
+                let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+                completion(formattedError)
             } else {
-                
+                completion(nil)
             }
         }
     }
@@ -207,24 +215,13 @@ extension UserAuthentification {
         let emailCredential = EmailAuthProvider.credential(withEmail: email, password: password)
         user.reauthenticate(with: emailCredential) { user, error in
           if let error = error {
-            // An error happened.
+              let nsError = error as NSError
+              let errorCode = AuthErrorCode(_nsError: nsError).code
+              let formattedError = SwiftyAuthErrors.handleFirebaseAuthErrors(errorCode)
+              completion(formattedError)
           } else {
-            // User re-authenticated.
+              completion(nil)
           }
         }
     }
-    
-//    private func changeCurrentPassword() {
-//        let user = Auth.auth().currentUser
-//        var credential: AuthCredential
-//        // Prompt the user to re-provide their sign-in credentials
-//
-//        user?.reauthenticate(with: credential) { user ,error in
-//          if let error = error {
-//            // An error happened.
-//          } else {
-//            // User re-authenticated.
-//          }
-//        }
-//    }
 }

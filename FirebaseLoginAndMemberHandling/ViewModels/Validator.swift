@@ -47,4 +47,12 @@ class Validator {
             return false
         }
     }
+    
+    func validateName(_ name: String) -> Bool {
+        guard !name.isEmpty, name.count >= 2 else {
+            return false
+        }
+        
+        return true
+    }
 }

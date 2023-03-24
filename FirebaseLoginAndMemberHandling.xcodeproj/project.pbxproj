@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9D1ACAA429CE143300B3DB9E /* SmallCloseButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAA329CE143300B3DB9E /* SmallCloseButtonLabel.swift */; };
+		9D1ACAC229CE41B700B3DB9E /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */; };
+		9D1ACAC429CE44A400B3DB9E /* ChangeDisplayNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */; };
 		9D93D67829C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D67729C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift */; };
 		9D93D67A29C819C70054BC82 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D93D67929C819C70054BC82 /* SignUpView.swift */; };
 		9D93D67C29C819C90054BC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D93D67B29C819C90054BC82 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		9D1ACAA329CE143300B3DB9E /* SmallCloseButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCloseButtonLabel.swift; sourceTree = "<group>"; };
+		9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayNameView.swift; sourceTree = "<group>"; };
 		9D93D67429C819C70054BC82 /* FirebaseLoginAndMemberHandling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseLoginAndMemberHandling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93D67729C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginAndMemberHandlingApp.swift; sourceTree = "<group>"; };
 		9D93D67929C819C70054BC82 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 			children = (
 				9D93D74129CE10990054BC82 /* ForgotPasswordView.swift */,
 				9D93D67929C819C70054BC82 /* SignUpView.swift */,
+				9D1ACAC129CE41B700B3DB9E /* ChangePasswordView.swift */,
+				9D1ACAC329CE44A300B3DB9E /* ChangeDisplayNameView.swift */,
 			);
 			path = SheetViews;
 			sourceTree = "<group>";
@@ -256,9 +262,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D93D6A629C90CBF0054BC82 /* User.swift in Sources */,
+				9D1ACAC229CE41B700B3DB9E /* ChangePasswordView.swift in Sources */,
 				9D93D68C29C8AB590054BC82 /* SecureGenericTextField.swift in Sources */,
 				9D93D67A29C819C70054BC82 /* SignUpView.swift in Sources */,
 				9D93D74029CD10270054BC82 /* LoggenInView.swift in Sources */,
+				9D1ACAC429CE44A400B3DB9E /* ChangeDisplayNameView.swift in Sources */,
 				9D93D67829C819C70054BC82 /* FirebaseLoginAndMemberHandlingApp.swift in Sources */,
 				9D93D69A29C8D8F10054BC82 /* MainTabView.swift in Sources */,
 				9D93D68E29C8ABA60054BC82 /* LoginView.swift in Sources */,

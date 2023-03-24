@@ -1,5 +1,5 @@
 //
-//  ForgotPasswordView.swift
+//  ChangeDisplayName.swift
 //  FirebaseLoginAndMemberHandling
 //
 //  Created by Djallil Elkebir on 2023-03-24.
@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct ForgotPasswordView: View {
+struct ChangeDisplayNameView: View {
     @ObservedObject var userAuthentification: UserAuthentification
     @Environment(\.presentationMode) var presentationMode
-    @State private var email: String = ""
-    @State private var isEmailValid: Bool?
-    @State private var isEmailSent: Bool = false
+    @State private var displayName: String = ""
+    @State private var isNameValid: Bool?
+    @State private var nameDidChange: Bool = false
     @State private var isMakingNetworkCall = false
-    @State var errorTitle: String?
-    @State var errorDescription: String?
+    @State private var errorTitle: String?
+    @State private var errorDescription: String?
     private let validator = Validator.shared
 
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("Forgot Password")
+                Text("Change Display Name")
                     .font(.title)
                     .bold()
                 Spacer()
@@ -32,11 +32,11 @@ struct ForgotPasswordView: View {
                 }
             }
             .padding(.bottom)
-            GenericTextField(value: $email, isCorrect: $isEmailValid, prompt: "Enter your email", sfIcon: "envelope")
+            GenericTextField(value: $displayName, isCorrect: $isNameValid, prompt: "Enter your new display name")
             Button {
-                forgotPassword()
+                changeName()
             } label: {
-                FullWidthCapsuleButtonLabel(title: "Send email")
+                FullWidthCapsuleButtonLabel(title: "Change Display Name")
             }
             .padding(.vertical)
             
@@ -55,7 +55,7 @@ struct ForgotPasswordView: View {
     }
     @ViewBuilder
     private func responseHandling() -> some View {
-        if isEmailSent {
+        if nameDidChange {
             Text("An Email has been sent")
                 .bold()
                 .foregroundColor(.green)
@@ -74,11 +74,11 @@ struct ForgotPasswordView: View {
         }
     }
     
-    private func forgotPassword() {
-        isEmailValid = validator.validateEmail(email)
-        if isEmailValid == true {
+    private func changeName() {
+        isNameValid = validator.validateName(displayName)
+        if isNameValid == true {
             isMakingNetworkCall = true
-            userAuthentification.forgotPassword(email: email) { error in
+            userAuthentification.changeDisplayName(displayName: displayName) { error in
                 if let error = error {
                     errorTitle = error.title
                     errorDescription = error.localizedDescription
@@ -87,18 +87,17 @@ struct ForgotPasswordView: View {
                     }
                 } else {
                     withAnimation {
-                        isEmailSent = true
+                        nameDidChange = true
                         isMakingNetworkCall = false
                     }
                 }
             }
-           
         }
     }
 }
 
-struct ForgotPasswordView_Previews: PreviewProvider {
+struct ChangeDisplayNameView_Previews: PreviewProvider {
     static var previews: some View {
-        ForgotPasswordView(userAuthentification: .init())
+        ChangeDisplayNameView(userAuthentification: .init())
     }
 }
