@@ -17,9 +17,9 @@ struct LoggenInView: View {
     @State private var showChangeYourNameSheet: Bool = false
     @State private var showChangeYourEmailSheet: Bool = false
     @State private var showChangeYourPasswordSheet: Bool = false
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center, spacing: 20) {
             HStack {
                 Spacer()
                 VStack {
@@ -36,23 +36,25 @@ struct LoggenInView: View {
                 ProfilButtonLabel(title: "Change Your Name", icon: "person.fill")
             }
             
-            Button {
-                showChangeYourEmailSheet = true
-            } label: {
-                ProfilButtonLabel(title: "Change Email", icon: "envelope.fill")
-            }
-            
-            Button {
-                showChangeYourPasswordSheet = true
-            } label: {
-                ProfilButtonLabel(title: "Change Password", icon: "lock.fill")
+            if let user = userAuthentification.user, (user.isSignedInWithApple ?? false)  == false {
+                Button {
+                    showChangeYourEmailSheet = true
+                } label: {
+                    ProfilButtonLabel(title: "Change Email", icon: "envelope.fill")
+                }
+                
+                Button {
+                    showChangeYourPasswordSheet = true
+                } label: {
+                    ProfilButtonLabel(title: "Change Password", icon: "lock.fill")
+                }
             }
             
             Button {
                 showConfirmationAlert = true
                 confirmationAlert = .delete
             } label: {
-                ProfilButtonLabel(title: "Delete Account", icon: "delete.backward.fill", backgroundColor: .red)
+                ProfilButtonLabel(title: "Delete Account", icon: "delete.backward.fill", backgroundColor: .red, isFullWidth: false)
             }
             .padding(.vertical)
             Spacer()
@@ -84,16 +86,16 @@ struct LoggenInView: View {
         }
         .alert(isPresented: $showConfirmationAlert) {
             Alert(title: Text("Confirmation"), message: Text("Are you sure you want to \(confirmationAlert?.title ?? "")?"), primaryButton: .destructive(Text("Yes")) {
-                        if let confirmationAlert = confirmationAlert {
-                            switch confirmationAlert {
-                            case .delete:
-                                delete()
-                            case .signOut:
-                                signOut()
-                            }
-                        }
-                    }, secondaryButton: .cancel())
+                if let confirmationAlert = confirmationAlert {
+                    switch confirmationAlert {
+                    case .delete:
+                        delete()
+                    case .signOut:
+                        signOut()
+                    }
                 }
+            }, secondaryButton: .cancel())
+        }
     }
     
     private func signOut() {
@@ -121,6 +123,6 @@ struct LoggenInView_Previews: PreviewProvider {
     static var previews: some View {
         LoggenInView(
             userAuthentification: .init()
-            )
+        )
     }
 }

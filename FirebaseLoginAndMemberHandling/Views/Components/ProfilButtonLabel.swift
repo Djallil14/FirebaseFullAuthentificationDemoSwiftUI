@@ -16,11 +16,18 @@ struct ProfilButtonLabel: View {
     var borderColor: Color = .black
     var lineWidth: CGFloat = 2
     var cornerRadius: CGFloat = 12
+    var isFullWidth: Bool = true
     var body: some View {
         HStack {
+            if isFullWidth {
+                Spacer()
+            }
             Image(systemName: icon)
             Text(title)
                 .font(.headline)
+            if isFullWidth {
+                Spacer()
+            }
         }
         .foregroundColor(textColor)
         .padding()

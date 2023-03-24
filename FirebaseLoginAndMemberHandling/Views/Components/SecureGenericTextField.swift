@@ -12,7 +12,6 @@ struct SecureGenericTextField: View {
     @Binding var value: String
     let prompt: String
     var backgroundColor: Color = .blue.opacity(0.05)
-    var textColor: Color = .black
     var borderColor: Color = .black
     var lineWidth: CGFloat = 2
     var sfIcon: String = "lock"
@@ -23,7 +22,7 @@ struct SecureGenericTextField: View {
             Image(systemName: sfIcon)
                 .imageScale(.large)
             SecureField(prompt, text: $value)
-                .foregroundColor(textColor)
+                .foregroundColor(colorScheme == .light ? .black : .white)
                 .autocorrectionDisabled(autoCorrectionDisabled)
             confirmationOrErrorLogo()
         }

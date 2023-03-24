@@ -148,7 +148,9 @@ struct LoginView: View {
                     alertErrorTitle = "You are now signed in"
                     alertErrorDescription = "Hello \(result?.user.displayName ?? "!") !"
                     showErrorAlert.toggle()
-                    let user = User(uuid: result!.user.uid, displayName: result?.user.displayName, email: result?.user.email)
+                    let user = User(uuid: result!.user.uid, displayName: result?.user.displayName, email: result?.user.email,
+                        isSignedInWithApple: true
+                    )
                     userAuthentification.setAppleUser(user: user)
                 }
                 withAnimation {

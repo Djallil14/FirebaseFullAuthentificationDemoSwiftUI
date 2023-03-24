@@ -36,7 +36,7 @@ struct ChangePasswordView: View {
                 }
             }
             Spacer()
-            GenericTextField(value: $userAuthentification.email, isCorrect: $isEmailCorrect, prompt: "Your Email", sfIcon: "envelope")
+            GenericTextField(value: $email, isCorrect: $isEmailCorrect, prompt: "Your Email", sfIcon: "envelope")
             SecureGenericTextField(value: $oldPassword, prompt: "Old Password", isCorrect: $isPasswordCorrect)
             SecureGenericTextField(value: $newPassword, prompt: "New Password", sfIcon: "lock.fill", isCorrect: $isPasswordCorrect)
             SecureGenericTextField(value: $confirmPassword, prompt: "Password  Confirmation", sfIcon: "lock.fill", isCorrect: $isPasswordCorrect)

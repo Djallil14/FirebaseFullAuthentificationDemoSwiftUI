@@ -24,7 +24,7 @@ struct GenericTextField: View {
                 Image(systemName: sfIcon)
                     .imageScale(.large)
                 TextField(prompt, text: $value)
-                    .foregroundColor(textColor)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                     .autocorrectionDisabled(autoCorrectionDisabled)
                 confirmationOrErrorLogo()
             }

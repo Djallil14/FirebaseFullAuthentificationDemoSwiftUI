@@ -36,8 +36,8 @@ struct ChangeEmailView: View {
                 }
             }
             Spacer()
-            GenericTextField(value: $userAuthentification.email, isCorrect: $isEmailCorrect, prompt: "Old Email", sfIcon: "envelope")
-            GenericTextField(value: $userAuthentification.email, isCorrect: $isNewEmailCorrect, prompt: "New Email", sfIcon: "envelope.fill")
+            GenericTextField(value: $email, isCorrect: $isEmailCorrect, prompt: "Old Email", sfIcon: "envelope")
+            GenericTextField(value: $newEmail, isCorrect: $isNewEmailCorrect, prompt: "New Email", sfIcon: "envelope.fill")
             SecureGenericTextField(value: $password, prompt: "Password", sfIcon: "lock", isCorrect: $isPasswordCorrect)
             Spacer()
             Button(action: {
